@@ -10,13 +10,14 @@ def authenticate():
     consumer_secret = config.get('Twitter-OAuth', 'CONSUMER_SECRET')
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token_key, access_token_secret)
-    api = tweepy.API(auth, secure=True)
+#    auth.secure = True
+    api = tweepy.API(auth)
     return api
 
-def tweet(status):
+def tweet(mystatus):
     api = authenticate()
-    if len(status) <= 140:
-        s = api.update_status(status)
+    if len(mystatus) <= 140:
+        s = api.update_status(status=mystatus)
         return s
     else:
         print "Don't be so wordy!"
